@@ -9,10 +9,14 @@ def main():
     print("ROCK, PAPER, SCISSORS")
     while True:
         print('%s Wins, %s Losses, %s Ties' % (wins, losses, ties))
-        print ("Enter your move: (r)ock (p)aper (s)cissors of (q)uit")
-        choice = input().lower()
-        if choice == 'q':
-            break
+        while True:
+            print ("Enter your move: (r)ock (p)aper (s)cissors of (q)uit")
+            choice = input().lower()
+            if choice == 'q':
+                sys.exit()
+            if choice == 'r' or choice == 'p' or choice == 's':
+                break
+            print("Invalid choice: please choose r, p, s or q")
         computerChoice = random.choice('rps')
         print('%s versus...' % (letterValue(choice).upper()))
         print(letterValue(computerChoice))
