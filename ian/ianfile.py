@@ -31,7 +31,7 @@ class createWindow():
         for r in varNames[varType]:
             header = StringVar()
             header.set(r)
-            varNamesNew[r] = Entry(whichFrame, bg = "WHITE", textvariable = header)
+            varNamesNew[r] = Entry(whichFrame, bg = "WHITE", textvariable = header, name=r)
             varNamesNew[r].config(font = header5, justify = "center")
             varNamesNew[r].place(x= i, y = 99, width = 133)
             i = i + 133
@@ -44,15 +44,25 @@ class createWindow():
 
     def run_Window(self):
         # Overall net value frame
-        mainCanvas = Canvas(window, bg = '#41455C', width = 1270, height = 9600, bd=0, highlightthickness=0)
+        # provided a name attribute to the mainCanvas to fetch later
+        mainCanvas = Canvas(window, bg = '#41455C', width = 1270, height = 9600, bd=0, highlightthickness=0, name="mainCanvas")
         mainCanvas.pack()
-        mainLongFrame = Frame(mainCanvas, bg = "GRAY")
+        mainLongFrame = Frame(mainCanvas, bg = "GRAY", name="mainLongFrame") #also included a name attribute
         mainLongFrame.place(x = 100, y = 160, width = 399, height = 257)
 
 
         #inputLongBuy = self.entry_Func(mainLongFrame, 0)
         inputLongBuy = self.entry_Func(mainLongFrame, 0)
-        #longLabel_BuyVstop_TR_Input.config(text = "Something else")
+        #fetch the panel that contains the entries:
+        currentPanel = self.window.nametowidget('mainCanvas.mainLongFrame')
+        #find the child entry with the name attribute 'longLabel_BuyVStop_TR_Input': 
+        entryToChange = mainLongFrame.children['longLabel_BuyVstop_TR_Input']
+        #because the text being displayed is a header, create a new header with text:
+        #(Alternatively, there might be a way to fetch the header child of the Entry and edit it directly)
+        print("entryToChange:",entryToChange)
+        newHeader = StringVar()
+        newHeader.set("Something else")
+        entryToChange.config(textvariable=newHeader)
 
         window.mainloop()
 
